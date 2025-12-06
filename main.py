@@ -23,3 +23,4 @@ if __name__ == "__main__":
     except CompilerError as err:
         print(err)
         sys.exit(1)
+
