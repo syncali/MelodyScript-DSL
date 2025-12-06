@@ -1,0 +1,32 @@
+EBNF Grammar
+
+Program         ::= { Statement }
+
+Statement       ::= Declaration 
+                  | Assignment 
+                  | Loop 
+                  | IfStatement 
+                  | FunctionCall ";"
+
+Declaration     ::= Type Identifier "=" Expression ";"
+Assignment      ::= Identifier "=" Expression ";"
+Loop            ::= "repeat" "(" Expression ")" Block
+IfStatement     ::= "if" "(" BooleanExpr ")" Block [ "else" Block ]
+Block           ::= "{" { Statement } "}"
+
+Expression      ::= Term { ("+" | "-") Term }
+Term            ::= Factor { ("*" | "/") Factor }
+Factor          ::= Identifier 
+                  | Number 
+                  | NoteLiteral 
+                  | "(" Expression ")"
+
+BooleanExpr     ::= Expression (">" | "<" | "==") Expression
+
+FunctionCall    ::= "play" "(" Expression "," Expression ")" 
+                  | "rest" "(" Expression ")"
+
+Type            ::= "int" | "note" | "string"
+Identifier      ::= T_ID
+Number          ::= T_NUM
+NoteLiteral     ::= T_NOTE_VAL
