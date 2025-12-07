@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 def render_instructions(code):
     lines = ["instructions = ["]
     for quad in code:
@@ -30,6 +29,7 @@ for i, ins in enumerate(instructions):
 env = {}
 params = []
 pc = 0
+
 
 def value(x):
     if x is None:
@@ -64,6 +64,7 @@ while pc < len(instructions):
         
     if op == '=':
         env[res] = value(a1)
+
     elif op in ('+', '-', '*', '/'):
         v1 = value(a1)
         v2 = value(a2)
@@ -113,6 +114,7 @@ while pc < len(instructions):
         if value(a1) != 0:
             pc = label_positions[a2]
             continue
+
     elif op == 'jump':
         pc = label_positions[a1]
         continue
