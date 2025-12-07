@@ -11,7 +11,7 @@ MelodyScript is a complete compiler implementation demonstrating all six phases 
 3. **Semantic Analysis** - Symbol table and type checking
 4. **Intermediate Code Generation** - Produces 3-address code (TAC)
 5. **Optimization** - Constant folding and dead code elimination
-6. **Code Generation** - Transpiles to executable Python using `winsound`
+6. **Code Generation** - Transpiles to executable Python using `pygame` and `numpy`
 
 ## Language Features
 
@@ -56,13 +56,18 @@ MelodyScript-DSL/
 └── examples/
     ├── simple.ms        # Basic note sequence
     ├── loop.ms          # Repeat loop example
-    └── conditional.ms   # If/else example
+    ├── conditional.ms   # If/else example
+    ├── happy_birthday.ms # Happy Birthday song
+    ├── harry_potter.ms  # Harry Potter theme
+    ├── interstellar.ms  # Interstellar theme
+    └── mary_had_lamb.ms # Mary Had a Little Lamb
 ```
 
 ## Requirements
 
 - Python 3.7+
-- Windows OS (uses `winsound` for audio)
+- `pygame`
+- `numpy`
 
 ## Usage
 
@@ -131,6 +136,37 @@ if (bpm > 100) {
 }
 ```
 
+### Harry Potter Theme (examples/harry_potter.ms)
+
+```c
+int s = 250;
+int l = 750;
+
+// Hedwig's Theme
+repeat(1) {
+    play(E4, l);
+    play(G4, s);
+    play(F#4, s);
+    play(E4, l);
+    play(B4, s);
+    play(A4, 1000);
+}
+```
+
+### Interstellar Theme (examples/interstellar.ms)
+
+```c
+int tick = 300;
+int shrt = 200;
+
+// Cornfield Chase Arpeggios
+play(A3, shrt);
+play(E4, shrt);
+play(A4, shrt);
+play(C5, shrt);
+play(E5, shrt);
+```
+
 ## Running the Examples
 
 ```bash
@@ -142,6 +178,15 @@ python main.py examples/loop.ms --run
 
 # Play conditional example
 python main.py examples/conditional.ms --run
+
+# Play Harry Potter Theme
+python main.py examples/harry_potter.ms --run
+
+# Play Interstellar Theme
+python main.py examples/interstellar.ms --run
+
+# Play Happy Birthday
+python main.py examples/happy_birthday.ms --run
 ```
 
 ## Compilation Phases Explained
@@ -191,7 +236,7 @@ Produces executable Python:
 
 - Emits TAC as data structure
 - Runtime interpreter executes instructions
-- Uses `winsound.Beep()` for audio output
+- Uses `pygame` and `numpy` for audio output
 
 ## Note Frequency Reference
 
