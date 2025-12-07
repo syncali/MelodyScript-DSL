@@ -105,9 +105,6 @@ class ICGenerator:
     
     def visit_NoteNode(self, node):
         note_name = node.name
-        
-        note_name = note_name.replace('b', '#')
-        
         if note_name not in NOTE_FREQS:
             raise CompilerError(0, f"Unknown note: {node.name}")
         
@@ -130,9 +127,9 @@ class ICGenerator:
         }
         
         op = op_map.get(node.operator)
-        if op:
-            self.emit(op, left, right, result)
-        
+        if not op:
+            raise CompilerError(0, "Unsupported binary operator")
+        self.emit(op, left, right, result)
         return result
     
     def visit_CompareNode(self, node):
@@ -147,9 +144,9 @@ class ICGenerator:
         }
         
         op = op_map.get(node.operator)
-        if op:
-            self.emit(op, left, right, result)
-        
+        if not op:
+            raise CompilerError(0, "Unsupported compare operator")
+        self.emit(op, left, right, result)
         return result
     
     def visit_FunctionCallNode(self, node):
